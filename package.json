@@ -1,0 +1,16 @@
+{
+  "name": "@hocinemk/easyfetch",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest && exit 1"
+  },
+  "keywords": [],
+  "author": "hocinemk",
+  "license": "MIT",
+  "description": "a library that will help test APIS",
+  "homepage": "",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
