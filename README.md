@@ -10,4 +10,4 @@ EasyFetch is a lightweight, promise-based HTTP client for Node.js, similar to Ax
 
 ## Installation
 ```bash
-npm install easyfetch
+npm install @hocinemk/easyfetch
