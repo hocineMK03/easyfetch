@@ -80,7 +80,7 @@ class EasyFetchClass {
                     const status = res.statusCode;
 
                     // Handle the response properly
-                    const response = this.handleResponse(status, data, startTime, endTime);
+                    const response = this.handleResponse(status, data,res.headers, startTime, endTime);
                     resolve(response);
                 });
             });
@@ -106,14 +106,21 @@ class EasyFetchClass {
         });
     }
 
-    handleResponse(status, data, startTime, endTime) {
+    handleResponse(status, data,headers, startTime, endTime) {
         const duration = endTime - startTime; // Calculate duration
 
-        // Check if the status code indicates success (200-299)
+        // handle teh ehaders into ehaders and cookies
+
+        const set_cookies = (headers['set-cookie'] || []).map(cookie => [cookie]);
+        const filteredHeaders = Object.entries(headers).filter(
+            ([key]) => key.toLowerCase() !== 'set-cookie'
+        );
         if (status >= 200 && status < 300) {
             return {
                 status,
                 data,
+                headers:filteredHeaders,
+                set_cookies,
                 time: this.styleDuration(duration),
             };
         } else {

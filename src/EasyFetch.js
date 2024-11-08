@@ -1,24 +1,28 @@
-
 const EasyFetch = require('./EasyFetchClass');
-const easyFetch=({ url = "", method = "GET", headers = {}, body = null, contentType = "application/json" })=>{
-    try{
-        // json strigify body 
-        
+
+const easyFetch =async ({ url = "", method = "GET", headers = {}, body = null, contentType = "application/json" }) => {
+    try {
+        // JSON stringify body if it's an object
         if (body && typeof body === 'object') {
             body = JSON.stringify(body);
         }
+        method = method.toUpperCase();
         const easyFetchInstance = new EasyFetch({ url, method, headers, body, contentType });
-        easyFetchInstance.request().then((response) => {
-            console.log('Response data:', response);
-        }).catch((error) => {
-            console.log('Error: ', error.message);
-        });
-    }
-    catch(error){
+        
+        // Return the promise to allow the calling function to handle it
+        return await easyFetchInstance.request()
+            .then((response) => {
+                
+                return response; 
+            })
+            .catch((error) => {
+                
+                throw error; 
+            });
+    } catch (error) {
         console.log(error);
+        throw error; 
     }
 }
 
-module.exports= easyFetch;
-
-
+module.exports = easyFetch;
